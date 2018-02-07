@@ -33,6 +33,7 @@ RUN buildDeps="sudo make gcc g++ libc-dev ruby-dev libffi-dev" \
 COPY ./conf/fluent.conf /fluentd/etc/
 COPY ./conf/systemd.conf /fluentd/etc/
 COPY ./conf/kubernetes.conf /fluentd/etc/
+COPY ./conf/nlog.conf /fluentd/etc/
 
 # Copy plugins
 COPY plugins /fluentd/plugins/

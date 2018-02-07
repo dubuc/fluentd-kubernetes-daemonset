@@ -25,6 +25,7 @@ RUN set -ex \
 # Copy configuration files
 COPY ./conf/fluent.conf /fluentd/etc/
 COPY ./conf/kubernetes.conf /fluentd/etc/
+COPY ./conf/nlog.conf /fluentd/etc/
 
 # Copy plugins
 COPY plugins /fluentd/plugins/
