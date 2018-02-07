@@ -115,7 +115,7 @@ release-all:
 # Usage:
 #	make src [DOCKERFILE=] [VERSION=] [TAGS=t1,t2,...]
 
-src: dockerfile fluent.conf systemd.conf kubernetes.conf plugins post-push-hook entrypoint.sh
+src: dockerfile fluent.conf systemd.conf kubernetes.conf nlog.conf plugins post-push-hook entrypoint.sh
 
 # Generate sources for all supported Docker images.
 #
@@ -188,6 +188,35 @@ systemd.conf:
 			dockerfile='$(DOCKERFILE)' \
 			version='$(VERSION)' \
 		/systemd.conf.erb > docker-image/$(DOCKERFILE)/conf/systemd.conf
+
+# Generate nlog.conf from template.
+#
+# Usage:
+#	make nlog.conf [DOCKERFILE=] [VERSION=]
+
+kubernetes.conf:
+	mkdir -p docker-image/$(DOCKERFILE)/conf
+	docker run --rm -i -v $(PWD)/templates/conf/kubernetes.conf.erb:/kubernetes.conf.erb:ro \
+		ruby:alpine erb -U -T 1 \
+			dockerfile='$(DOCKERFILE)' \
+			version='$(VERSION)' \
+		/kubernetes.conf.erb > docker-image/$(DOCKERFILE)/conf/kubernetes.conf
+
+systemd.conf:
+	mkdir -p docker-image/$(DOCKERFILE)/conf
+	docker run --rm -i -v $(PWD)/templates/conf/systemd.conf.erb:/systemd.conf.erb:ro \
+		ruby:alpine erb -U -T 1 \
+			dockerfile='$(DOCKERFILE)' \
+			version='$(VERSION)' \
+		/systemd.conf.erb > docker-image/$(DOCKERFILE)/conf/systemd.conf
+
+nlog.conf:
+	mkdir -p docker-image/$(DOCKERFILE)/conf
+	docker run --rm -i -v $(PWD)/templates/conf/nlog.conf.erb:/nlog.conf.erb:ro \
+		ruby:alpine erb -U -T 1 \
+			dockerfile='$(DOCKERFILE)' \
+			version='$(VERSION)' \
+		/nlog.conf.erb > docker-image/$(DOCKERFILE)/conf/nlog.conf
 
 # Generate plugins for version
 #
@@ -270,6 +299,19 @@ kubernetes.conf-all:
 			                 $(word 2,$(subst :, ,$(img))))) ; \
 	))
 
+# Generate nlog.conf from template for all supported Docker images.
+#
+# Usage:
+#	make nlog.conf-all
+
+nlog.conf-all:
+	(set -e ; $(foreach img,$(ALL_IMAGES), \
+		make nlog.conf \
+			DOCKERFILE=$(word 1,$(subst :, ,$(img))) \
+			VERSION=$(word 1,$(subst $(comma), ,\
+			                 $(word 2,$(subst :, ,$(img))))) ; \
+	))
+
 # copy plugins required for all supported Docker images.
 #
 # Usage:
@@ -300,6 +342,7 @@ post-push-hook-all:
         dockerfile dockerfile-all \
         entrypoint.sh entrypoint.sh-all \
         fluent.conf fluent.conf-all \
-        kubernetes.conf kubernetes.conf-all\
+        kubernetes.conf kubernetes.conf-all \
+		nlog.conf nlog.conf-all \
         plugins plugins-all \
         post-push-hook post-push-hook-all
