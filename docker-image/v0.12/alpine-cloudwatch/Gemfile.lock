@@ -9,11 +9,11 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     aws-eventstream (1.0.1)
-    aws-partitions (1.95.0)
+    aws-partitions (1.97.0)
     aws-sdk-cloudwatchlogs (1.4.0)
       aws-sdk-core (~> 3)
       aws-sigv4 (~> 1.0)
-    aws-sdk-core (3.22.1)
+    aws-sdk-core (3.23.0)
       aws-eventstream (~> 1.0)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.0)
@@ -23,13 +23,6 @@ GEM
     cool.io (1.5.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    fluent-mixin-config-placeholders (0.4.0)
-      fluentd
-      uuidtools (>= 2.1.5)
-    fluent-plugin-cloudwatch-logs (0.4.5)
-      aws-sdk-cloudwatchlogs (~> 1.0)
-      fluent-mixin-config-placeholders (>= 0.2.0)
-      fluentd
     fluent-plugin-kubernetes_metadata_filter (1.1.0)
       fluentd (>= 0.12.0)
       kubeclient (~> 1.1.4)
@@ -96,15 +89,13 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    uuidtools (2.1.5)
-    yajl-ruby (1.4.0)
+    yajl-ruby (1.4.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   aws-sdk-cloudwatchlogs (~> 1.0)
-  fluent-plugin-cloudwatch-logs (= 0.4.5)
   fluent-plugin-kubernetes_metadata_filter
   fluent-plugin-record-reformer
   fluent-plugin-rewrite-tag-filter
@@ -113,4 +104,4 @@ DEPENDENCIES
   oj (= 3.5.1)
 
 BUNDLED WITH
-   1.16.1
+   1.16.3

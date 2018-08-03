@@ -12,7 +12,7 @@ GEM
     cool.io (1.5.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
-    fluent-plugin-kafka (0.7.3)
+    fluent-plugin-kafka (0.7.4)
       fluentd (>= 0.10.58, < 2)
       ltsv
       ruby-kafka (>= 0.4.1, < 1.0.0)
@@ -83,7 +83,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    yajl-ruby (1.4.0)
+    yajl-ruby (1.4.1)
 
 PLATFORMS
   ruby
@@ -98,4 +98,4 @@ DEPENDENCIES
   oj (= 3.5.1)
 
 BUNDLED WITH
-   1.16.1
+   1.16.3

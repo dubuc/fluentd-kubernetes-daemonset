@@ -22,6 +22,7 @@
 - `v0.12-debian-graylog` [docker-image/v0.12/debian-graylog/Dockerfile](docker-image/v0.12/debian-graylog/Dockerfile)
 - `v0.12-debian-logzio` [docker-image/v0.12/debian-logzio/Dockerfile](docker-image/v0.12/debian-logzio/Dockerfile)
 - `v0.12-debian-kafka` [docker-image/v0.12/debian-kafka/Dockerfile](docker-image/v0.12/debian-kafka/Dockerfile)
+- `v0.12-debian-http` [docker-image/v0.12/debian-http/Dockerfile](docker-image/v0.12/debian-http/Dockerfile)
 - `v1.2-debian-elasticsearch` [docker-image/v1.2/debian-elasticsearch/Dockerfile](docker-image/v1.2/debian-elasticsearch/Dockerfile)
 - `v1.2-debian-loggly` [docker-image/v1.2/debian-loggly/Dockerfile](docker-image/v1.2/debian-loggly/Dockerfile)
 - `v1.2-debian-logentries` [docker-image/v1.2/debian-logentries/Dockerfile](docker-image/v1.2/debian-logentries/Dockerfile)
@@ -34,6 +35,7 @@
 - `v1.2-debian-papertrail` [docker-image/v1.2/debian-papertrail/Dockerfile](docker-image/v1.2/debian-papertrail/Dockerfile)
 - `v1.2-debian-logzio` [docker-image/v1.2/debian-logzio/Dockerfile](docker-image/v1.2/debian-logzio/Dockerfile)
 - `v1.2-debian-kafka` [docker-image/v1.2/debian-kafka/Dockerfile](docker-image/v1.2/debian-kafka/Dockerfile)
+- `v1.2-debian-http` [docker-image/v1.2/debian-http/Dockerfile](docker-image/v1.2/debian-http/Dockerfile)
 
 ### Alpine Linux
 
@@ -49,6 +51,7 @@
 - `v0.12-alpine-graylog` [docker-image/v0.12/alpine-graylog/Dockerfile](docker-image/v0.12/alpine-graylog/Dockerfile)
 - `v0.12-alpine-logzio` [docker-image/v0.12/alpine-logzio/Dockerfile](docker-image/v0.12/alpine-logzio/Dockerfile)
 - `v0.12-alpine-kafka` [docker-image/v0.12/alpine-kafka/Dockerfile](docker-image/v0.12/alpine-kafka/Dockerfile)
+- `v0.12-alpine-http` [docker-image/v0.12/alpine-http/Dockerfile](docker-image/v0.12/alpine-http/Dockerfile)
 
 ## What is Fluentd?
 

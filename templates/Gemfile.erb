@@ -24,6 +24,8 @@ gem "fluent-plugin-elasticsearch"
 gem "fluent-plugin-loggly"
 <% when "cloudwatch" %>
 gem "aws-sdk-cloudwatchlogs", "~> 1.0"
+<% when "http" %>
+gem "fluent-plugin-out-http", "0.2.0"
 <% if is_v1 %>
 gem "fluent-plugin-cloudwatch-logs", ">=0.5"
 <% else %>
