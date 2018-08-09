@@ -60,7 +60,7 @@ GEM
       multi_json (~> 1.10)
       retriable (~> 1.4)
       signet (~> 0.6)
-    googleauth (0.6.3)
+    googleauth (0.6.4)
       faraday (~> 0.12)
       jwt (>= 1.4, < 3.0)
       memoist (~> 0.12)
