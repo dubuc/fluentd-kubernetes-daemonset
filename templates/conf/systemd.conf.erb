@@ -21,8 +21,10 @@
   </storage>
 <% if target == "elasticsearch" %>
   <entry>
-    @type systemd_entry
-    field_map {"MESSAGE": "log", "_PID": ["process", "pid"], "_CMDLINE": "process", "_COMM": "cmd"}
+    fields_strip_underscores true
+  </entry>
+<% elsif target == "http" %>
+  <entry>
     field_map_strict false
     fields_lowercase true
     fields_strip_underscores true
@@ -30,18 +32,9 @@
 <% end %>
 <% else %>
   pos_file /var/log/fluentd-journald-kubelet.pos
-<% if target == "elasticsearch" %>
+<% if target == "elasticsearch" or target == "http" %>
   strip_underscores true
 <% end %>
-<% end %>
-<% if target == "http" %>
-  <entry>
-    @type systemd_entry
-    field_map {"MESSAGE": "log", "_PID": ["process", "pid"], "_CMDLINE": "process", "_COMM": "cmd"}
-    field_map_strict false
-    fields_lowercase true
-    fields_strip_underscores true
-  </entry>
 <% end %>
   read_from_head true
   tag kubelet
@@ -64,8 +57,10 @@
   </storage>
 <% if target == "elasticsearch" %>
   <entry>
-    @type systemd_entry
-    field_map {"MESSAGE": "log", "_PID": ["process", "pid"], "_CMDLINE": "process", "_COMM": "cmd"}
+    fields_strip_underscores true
+  </entry>
+<% elsif target == "http" %>
+  <entry>
     field_map_strict false
     fields_lowercase true
     fields_strip_underscores true
@@ -73,24 +68,14 @@
 <% end %>
 <% else %>
   pos_file /var/log/fluentd-journald-docker.pos
-<% if target == "elasticsearch" %>
+<% if target == "elasticsearch" or target == "http" %>
   strip_underscores true
 <% end %>
-<% end %>
-<% if target == "http" %>
-  <entry>
-    @type systemd_entry
-    field_map {"MESSAGE": "log", "_PID": ["process", "pid"], "_CMDLINE": "process", "_COMM": "cmd"}
-    field_map_strict false
-    fields_lowercase true
-    fields_strip_underscores true
-  </entry>
 <% end %>
   read_from_head true
   tag docker.systemd
 </source>
 
-<% if target != "http" %>
 # Logs from systemd-journal for interesting services.
 <source>
   @type systemd
@@ -110,58 +95,21 @@
   <entry>
     fields_strip_underscores true
   </entry>
+<% elsif target == "http" %>
+  <entry>
+    field_map_strict false
+    fields_lowercase true
+    fields_strip_underscores true
+  </entry>
 <% end %>
 <% else %>
   pos_file /var/log/fluentd-journald-bootkube.pos
-<% if target == "elasticsearch" %>
+<% if target == "elasticsearch" or target == "http" %>
   strip_underscores true
 <% end %>
 <% end %>
   read_from_head true
   tag bootkube
-</source>
-<% end %>
-
-<source>
-  @type systemd
-  @id in_systemd_etcd
-<% if is_v1 %>
-  matches [{ "_SYSTEMD_UNIT": "etcd.service" }]
-<% else %>
-  filters [{ "_SYSTEMD_UNIT": "etcd.service" }]
-<% end %>
-<% if is_v1 %>
-  <storage>
-    @type local
-    persistent true
-    path /var/log/fluentd-journald-etcd-cursor.json
-  </storage>
-<% if target == "elasticsearch" %>
-  <entry>
-    @type systemd_entry
-    field_map {"MESSAGE": "log", "_PID": ["process", "pid"], "_CMDLINE": "process", "_COMM": "cmd"}
-    field_map_strict false
-    fields_lowercase true
-    fields_strip_underscores true
-  </entry>
-<% end %>
-<% else %>
-  pos_file /var/log/fluentd-journald-etcd.pos
-<% if target == "elasticsearch" %>
-  strip_underscores true
-<% end %>
-<% end %>
-<% if target == "http" %>
-  <entry>
-    @type systemd_entry
-    field_map {"MESSAGE": "log", "_PID": ["process", "pid"], "_CMDLINE": "process", "_COMM": "cmd"}
-    field_map_strict false
-    fields_lowercase true
-    fields_strip_underscores true
-  </entry>
-<% end %>
-  read_from_head true
-  tag kubelet
 </source>
 
 <% case target when "papertrail"%>
@@ -178,3 +126,39 @@
   </record>
 </filter>
 <% end %>
+
+# Logs from systemd-journal for interesting services.
+<source>
+  @type systemd
+  @id in_systemd_etcd
+<% if is_v1 %>
+  matches [{ "_SYSTEMD_UNIT": "etcd.service" }]
+<% else %>
+  filters [{ "_SYSTEMD_UNIT": "etcd.service" }]
+<% end %>
+<% if is_v1 %>
+  <storage>
+    @type local
+    persistent true
+    path /var/log/fluentd-journald-etcd-cursor.json
+  </storage>
+<% if target == "elasticsearch" %>
+  <entry>
+    fields_strip_underscores true
+  </entry>
+<% elsif target == "http" %>
+  <entry>
+    field_map_strict false
+    fields_lowercase true
+    fields_strip_underscores true
+  </entry>
+<% end %>
+<% else %>
+  pos_file /var/log/fluentd-journald-etcd.pos
+<% if target == "elasticsearch" or "http" %>
+  strip_underscores true
+<% end %>
+<% end %>
+  read_from_head true
+  tag kubelet
+</source>

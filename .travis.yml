@@ -1,16 +1,14 @@
 sudo: required
-
 language: ruby
-
 services:
-  - docker
-
-# before_install:
-#   - sudo apt-get install -y make
-
-# addons:
-#   apt:
-#     update: true
-
+- docker
 script:
-  - make src-all
+- make src DOCKERFILE=v0.12/debian-http VERSION=v0.12.43-debian-http TAGS=v0.12-debian-http,debian-http
+- make image DOCKERFILE=v0.12/debian-http VERSION=v0.12.43-debian-http TAGS=v0.12-debian-http,debian-http
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker tag fluent/fluentd-kubernetes:v0.12.43-debian-http dubuc/fluentd-kubernetes:debian-http
+- docker push dubuc/fluentd-kubernetes:debian-http
+
+env:
+  matrix:
+    secure: VZn4Huh/B46NqWxUCbe2JRN6/pMUgZTC2g4kaNBroygoklyltvvUaaxvHqz8Rrk1+nMSXF46nFUle8Hamd5YbGFPACiQjYnNniolSO7eq908vA/jrcBO9zuRaoZHmBoJUD39tzOfiIrMosIQUZzfaXF5Fb7tiHdua8273PPKQXzCzfs/wUj5PiJQAHtsruwAaCkM4QbF/0a+X57bl2vNbS09g2A3pWcUaYrN/JWbXbRqet2acl1Gd4ZUyNkuOUsJ6G6B7abVasAp4bIB7qUJNQUk4kKq3U1pOlLUYfWmwFNR7P6vvleHRvzURZT9oxBPtKBXthfi56YLCBF7ciFy5Q5pQfhJbl9RivWuc9METGPi0R+g6SinzBvOwQaP72LL2dqtMSaBMAUrbf7d2uMTlHG/KnJgH4y/WLgjETqiORDcvCKGXiVAFrXBnQZP8IIpguP/oEV2/sh4HXWDsVyNNoYtj5e7JpmvGlBSTqazf4U6Yr2JYxfgSeEVxLQwrbY/qLLwv0SzZrrnVt89DxLT4KPhqYh8MqNL+rb38oODaN+riwC61VxG/W1S5PGSqTRMwItqU34CcIS4QzN3gEY+rm5OvrupYVnEE6yTEmMGY27OoqioUU4euZq1nTZx+1p0HtkieZBK/jleE3nJR/fsQy45rCdUBlAbYxWSlvk1ccY=

@@ -7,7 +7,7 @@
 
 <% if !is_alpine %>
 @include systemd.conf
-<% end%>
+<% end %>
 @include kubernetes.conf
 
 <% case target when "elasticsearch"%>
